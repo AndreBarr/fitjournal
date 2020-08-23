@@ -4,25 +4,25 @@ function ExerciseForm(props) {
   return (
     <form onSubmit={props.handleSubmit}>
       <label>
-        Type:
-        <textarea
+        <input
           name="type"
+          type="text"
           value={props.type}
           onChange={props.handleChange}
         />
       </label>
       <label>
-        Sets:
-        <textarea
+        <input
           name="sets"
+          type="number"
           value={props.sets}
           onChange={props.handleChange}
         />
       </label>
       <label>
-        Reps:
-        <textarea
+        <input
           name="reps"
+          type="number"
           value={props.reps}
           onChange={props.handleChange}
         />
