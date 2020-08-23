@@ -1,6 +1,7 @@
 import React from "react";
 import Exercise from "./Exercise";
 import ExerciseForm from "./ExerciseForm";
+import "../App.css";
 
 class Workout extends React.Component {
   constructor(props) {
@@ -48,13 +49,21 @@ class Workout extends React.Component {
   }
 
   render() {
-    let workout = [];
+    let workoutTable = [];
     for (let i = 1; i < this.state.exercises.length; i++) {
-      workout.push(this.renderExercise(this.state.exercises[i].exercise));
+      workoutTable.push(this.renderExercise(this.state.exercises[i].exercise));
     }
     return (
       <div>
-        {workout}
+        <table className="workout-table">
+          <tr>
+            <th>Exercise</th>
+            <th>Sets</th>
+            <th>Reps</th>
+          </tr>
+          {workoutTable}
+        </table>
+
         <ExerciseForm
           type={this.state.type}
           sets={this.state.sets}

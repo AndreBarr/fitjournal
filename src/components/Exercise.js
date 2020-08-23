@@ -2,13 +2,11 @@ import React from "react";
 
 function Exercise(props) {
   return (
-    <header>
-      <div className="row">
-        Type: {props.exercise.type}
-        Sets: {props.exercise.sets}
-        Reps: {props.exercise.reps}
-      </div>
-    </header>
+    <tr>
+      <td>{props.exercise.type}</td>
+      <td>{props.exercise.sets}</td>
+      <td>{props.exercise.reps}</td>
+    </tr>
   );
 }
 
