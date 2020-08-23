@@ -1,12 +1,15 @@
 import React from "react";
 import Exercise from "./Exercise";
+import ExerciseForm from "./ExerciseForm";
 
 class Workout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       exercises: [{ exercise: null }],
-      placeHolder: "Bench Press",
+      type: "Bench Press",
+      sets: 3,
+      reps: 3,
     };
   }
 
@@ -14,7 +17,15 @@ class Workout extends React.Component {
     const exercises = this.state.exercises.slice();
     this.setState({
       exercises: exercises.concat([
-        { exercise: <div>{this.state.placeHolder}</div> },
+        {
+          exercise: (
+            <div>
+              <div>{this.state.type}</div>
+              <div>{this.state.sets}</div>
+              <div>{this.state.reps}</div>
+            </div>
+          ),
+        },
       ]),
     });
     event.preventDefault();
@@ -25,7 +36,9 @@ class Workout extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({ placeHolder: event.target.value });
+    const target = event.target;
+    const name = target.name;
+    this.setState({ [name]: target.value });
   }
 
   render() {
@@ -36,16 +49,13 @@ class Workout extends React.Component {
     return (
       <div>
         {workout}
-        <form onSubmit={(event) => this.addExercise(event)}>
-          <label>
-            Type:
-            <textarea
-              value={this.placeHolder}
-              onChange={(event) => this.handleChange(event)}
-            ></textarea>
-          </label>
-          <input type="submit" value="Add Exercise" />
-        </form>
+        <ExerciseForm
+          type={this.state.type}
+          sets={this.state.sets}
+          reps={this.state.reps}
+          handleSubmit={(event) => this.addExercise(event)}
+          handleChange={(event) => this.handleChange(event)}
+        />
       </div>
     );
   }

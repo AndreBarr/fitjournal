@@ -1,7 +1,14 @@
 import React from "react";
 
-function Exercise(props) {
-  return <header>{props.value}</header>;
+class Exercise extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    return <header>{this.props.value}</header>;
+  }
 }
 
 export default Exercise;
