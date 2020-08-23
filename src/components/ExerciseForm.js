@@ -1,8 +1,9 @@
 import React from "react";
+import "../index.css";
 
 function ExerciseForm(props) {
   return (
-    <form onSubmit={props.handleSubmit}>
+    <form className="exercise-form" onSubmit={props.handleSubmit}>
       <label>
         <input
           name="type"
