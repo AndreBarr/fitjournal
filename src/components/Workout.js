@@ -6,19 +6,26 @@ class Workout extends React.Component {
     super(props);
     this.state = {
       exercises: [{ exercise: null }],
+      placeHolder: "Bench Press",
     };
   }
 
-  addExercise() {
+  addExercise(event) {
     const exercises = this.state.exercises.slice();
     this.setState({
-      exercises: exercises.concat([{ exercise: <div>Test</div> }]),
+      exercises: exercises.concat([
+        { exercise: <div>{this.state.placeHolder}</div> },
+      ]),
     });
-    return;
+    event.preventDefault();
   }
 
   renderExercise(i) {
-    return <Exercise value={i} />;
+    return <Exercise value={i} key={i} />;
+  }
+
+  handleChange(event) {
+    this.setState({ placeHolder: event.target.value });
   }
 
   render() {
@@ -29,7 +36,16 @@ class Workout extends React.Component {
     return (
       <div>
         {workout}
-        <button onClick={() => this.addExercise()}>Add Exercise</button>
+        <form onSubmit={(event) => this.addExercise(event)}>
+          <label>
+            Type:
+            <textarea
+              value={this.placeHolder}
+              onChange={(event) => this.handleChange(event)}
+            ></textarea>
+          </label>
+          <input type="submit" value="Add Exercise" />
+        </form>
       </div>
     );
   }
