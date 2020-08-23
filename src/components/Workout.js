@@ -6,7 +6,15 @@ class Workout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      exercises: [{ exercise: null }],
+      exercises: [
+        {
+          exercise: {
+            type: null,
+            sets: null,
+            reps: null,
+          },
+        },
+      ],
       type: "Bench Press",
       sets: 3,
       reps: 3,
@@ -18,21 +26,19 @@ class Workout extends React.Component {
     this.setState({
       exercises: exercises.concat([
         {
-          exercise: (
-            <div>
-              <div>{this.state.type}</div>
-              <div>{this.state.sets}</div>
-              <div>{this.state.reps}</div>
-            </div>
-          ),
+          exercise: {
+            type: this.state.type,
+            sets: this.state.sets,
+            reps: this.state.reps,
+          },
         },
       ]),
     });
     event.preventDefault();
   }
 
-  renderExercise(i) {
-    return <Exercise value={i} key={i} />;
+  renderExercise(excercise) {
+    return <Exercise exercise={excercise} />;
   }
 
   handleChange(event) {
@@ -43,7 +49,7 @@ class Workout extends React.Component {
 
   render() {
     let workout = [];
-    for (let i = 0; i < this.state.exercises.length; i++) {
+    for (let i = 1; i < this.state.exercises.length; i++) {
       workout.push(this.renderExercise(this.state.exercises[i].exercise));
     }
     return (
