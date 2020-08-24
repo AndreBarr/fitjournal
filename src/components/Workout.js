@@ -10,9 +10,10 @@ class Workout extends React.Component {
       exercises: [
         {
           exercise: {
-            type: "",
+            type: null,
             sets: null,
             reps: null,
+            _id: null,
           },
         },
       ],
@@ -39,15 +40,16 @@ class Workout extends React.Component {
       .then((response) => response.json())
       .then((createdExercise) => {
         console.log(createdExercise);
+        this.setState({
+          exercises: exercises.concat([
+            {
+              exercise: createdExercise,
+            },
+          ]),
+        });
         this.resetExerciseForm();
       });
-    this.setState({
-      exercises: exercises.concat([
-        {
-          exercise: exercise,
-        },
-      ]),
-    });
+
     event.preventDefault();
   }
 
@@ -68,7 +70,7 @@ class Workout extends React.Component {
   }
 
   renderExercise(exercise, index) {
-    return <Exercise exercise={exercise} index={index} key={index} />;
+    return <Exercise exercise={exercise} index={index} key={exercise._id} />;
   }
 
   handleChange(event) {
