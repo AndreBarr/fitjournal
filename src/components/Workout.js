@@ -16,26 +16,47 @@ class Workout extends React.Component {
           },
         },
       ],
-      type: "Bench Press",
-      sets: 3,
-      reps: 3,
+      type: "",
+      sets: "",
+      reps: "",
     };
   }
 
   addExercise(event) {
     const exercises = this.state.exercises.slice();
+    const exercise = {
+      type: this.state.type,
+      sets: this.state.sets,
+      reps: this.state.reps,
+    };
+    fetch("http://localhost:5000/exercise", {
+      method: "POST",
+      body: JSON.stringify(exercise),
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((createdExercise) => {
+        console.log(createdExercise);
+        this.resetExerciseForm();
+      });
     this.setState({
       exercises: exercises.concat([
         {
-          exercise: {
-            type: this.state.type,
-            sets: this.state.sets,
-            reps: this.state.reps,
-          },
+          exercise: exercise,
         },
       ]),
     });
     event.preventDefault();
+  }
+
+  resetExerciseForm() {
+    this.setState({
+      type: "",
+      sets: "",
+      reps: "",
+    });
   }
 
   removeExercise(index) {
@@ -87,7 +108,7 @@ class Workout extends React.Component {
           <table>
             <tbody>
               <tr>
-                <th>Number</th>
+                <th>Order</th>
                 <th>Exercise</th>
                 <th>Sets</th>
                 <th>Reps</th>
