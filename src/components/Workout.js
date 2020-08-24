@@ -63,6 +63,18 @@ class Workout extends React.Component {
 
   removeExercise(index) {
     const exercises = this.state.exercises.slice();
+    const exercise = exercises[index].exercise;
+    fetch("http://localhost:5000/exercise", {
+      method: "DELETE",
+      body: JSON.stringify(exercise),
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((removedExercise) => {
+        console.log(removedExercise);
+      });
     exercises.splice(index, 1);
     this.setState({
       exercises: exercises,
