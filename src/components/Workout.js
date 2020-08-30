@@ -74,11 +74,11 @@ class Workout extends React.Component {
       .then((response) => response.json())
       .then((removedExercise) => {
         console.log(removedExercise);
+        exercises.splice(index, 1);
+        this.setState({
+          exercises: exercises,
+        });
       });
-    exercises.splice(index, 1);
-    this.setState({
-      exercises: exercises,
-    });
   }
 
   renderExercise(exercise, index) {
